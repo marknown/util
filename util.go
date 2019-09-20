@@ -2,6 +2,8 @@ package util
 
 import (
 	"bytes"
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -135,7 +137,19 @@ func URLDecode(s string) (string, error) {
 
 // SubString 截取字符串
 func SubString(s string, start int, length int) string {
-	return string([]rune(s)[start : start+length])
+	var r = []rune(s)
+	len := len(r)
+
+	end := start+length
+
+	if start < 0 {
+		start = 0
+	}
+	if end > len {
+		end = len
+	}
+	
+	return string(r[start : end])
 }
 
 // RegexReplace 根据正则来匹配
@@ -426,4 +440,11 @@ func Exec(name string, args ...string) (string, error) {
 	}
 
 	return output.String(), nil
+}
+
+// Md5 函数
+func Md5(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
 }
