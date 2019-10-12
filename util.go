@@ -53,6 +53,7 @@ func JsonResult(message string, success bool, data interface{}, jsonpCallback st
 	obj.Message = message
 	obj.Success = success
 	obj.Data = data
+	obj.Code = code
 	if code == "" {
 		if success {
 			obj.Code = "ok"
@@ -140,7 +141,7 @@ func SubString(s string, start int, length int) string {
 	var r = []rune(s)
 	len := len(r)
 
-	end := start+length
+	end := start + length
 
 	if start < 0 {
 		start = 0
@@ -148,8 +149,8 @@ func SubString(s string, start int, length int) string {
 	if end > len {
 		end = len
 	}
-	
-	return string(r[start : end])
+
+	return string(r[start:end])
 }
 
 // RegexReplace 根据正则来匹配
