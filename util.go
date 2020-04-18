@@ -443,6 +443,17 @@ func Exec(name string, args ...string) (string, error) {
 	return output.String(), nil
 }
 
+// ExecAsync 异步执行系统命令
+func ExecAsync(name string, args ...string) error {
+	cmd := exec.Command(name, args...)
+	err := cmd.Start()
+	if nil != err {
+		return err
+	}
+
+	return nil
+}
+
 // Md5 函数
 func Md5(str string) string {
 	h := md5.New()
